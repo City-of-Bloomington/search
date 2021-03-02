@@ -12,8 +12,13 @@ class SearchController extends Controller
 {
     public function __invoke()
     {
-        $solr = $this->di->get('Web\Search\Solr');
-        $res  = $solr->query();
+        if (!empty($_GET['query'])) {
+            $solr = $this->di->get('Web\Search\Solr');
+            $res  = $solr->query($_GET['query']);
+        }
+        else {
+            $res = null;
+        }
 
         return new SearchView($res);
     }

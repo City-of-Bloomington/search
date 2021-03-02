@@ -13,6 +13,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class Solr
 {
+    public const DEFAULT_FIELD = 'tm_X3b_en_aggregated_field';
     private $client;
 
     /**
@@ -35,9 +36,22 @@ class Solr
 
     public function getClient(): Client { return $this->client; }
 
-    public function query(): ResultInterface
+    public function query(string $search): ResultInterface
     {
-        $query = $this->client->createQuery(Client::QUERY_SELECT);
-        return   $this->client->execute($query);
+        $search = self::cleanInput($search);
+        $query  = $this->client->createSelect([
+            'query'   => $search,
+            'fields'  => 'id,site,index_id,ss_type,ss_url,ss_title,ss_summary,score',
+            'start'   => 0,
+            'rows'    => 10,
+            'querydefaultfield' => self::DEFAULT_FIELD
+        ]);
+        $query->getHighlighting();
+        return $this->client->execute($query);
+    }
+
+    private static function cleanInput(string $search): string
+    {
+        return str_replace(['"', "'"], '', $search);
     }
 }
