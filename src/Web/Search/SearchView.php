@@ -14,29 +14,33 @@ use Web\Template;
 
 class SearchView extends Template
 {
-    public function __construct(?ResultInterface $res=null)
+    /**
+     * @param int $currentPage   Current page number starting from 1
+     */
+    public function __construct(?ResultInterface $res=null,
+                                int              $itemsPerPage,
+                                int              $currentPage)
     {
         parent::__construct();
 
         if ($res) {
-            $highlighting = $res->getHighlighting();
-            $results = [
-                'total'     => $res->getNumFound(),
-                'documents' => []
-            ];
+            $h    = $res->getHighlighting();
+            $docs = [];
             foreach ($res as $r) {
-                $fields = $r->getFields();
-                $fields['highlighting'] = self::getHighlighting($highlighting, $r->id);
-                $results['documents'][] = $fields;
+                $f                 = $r->getFields();
+                $f['highlighting'] = self::getHighlighting($h, $r->id);
+                $docs[]            = $f;
             }
+            $vars = [
+                'itemsPerPage' => $itemsPerPage,
+                'currentPage'  => $currentPage,
+                'total'        => $res->getNumFound(),
+                'results'      => $docs
+            ];
         }
-        else {
-            $results = [];
-        }
+        else { $vars = null; }
 
-        $this->blocks = [
-            new Block('searchForm.inc', ['results' => $results])
-        ];
+        $this->blocks = [ new Block('searchForm.inc', $vars) ];
     }
 
     private static function getHighlighting(Highlighting $highlighting, string $id): string

@@ -2,12 +2,17 @@
 /**
  * @copyright 2021 City of Bloomington, Indiana
  * @license https://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
+ * @param int   $this->total
+ * @param int   $this->itemsPerPage
+ * @param int   $this->currentPage
  * @param array $this->results
  */
 declare (strict_types=1);
-if ($this->results) {
-    if ($this->results['total']) {
-        foreach ($this->results['documents'] as $d) {
+use Web\Paginator;
+
+if (isset($this->total)) {
+    if ($this->total > 0) {
+        foreach ($this->results as $d) {
             $summary = $d['highlighting'] ?: ($d['ss_summary'] ?: '' );
             echo "
             <article>
@@ -15,6 +20,15 @@ if ($this->results) {
                 <p>$summary</p>
             </article>
             ";
+        }
+
+        if ($this->total > $this->itemsPerPage) {
+            $this->paginator = new Paginator(
+                $this->total,
+                $this->itemsPerPage,
+                $this->currentPage
+            );
+            $this->_include('pageNavigation.inc');
         }
     }
     else {

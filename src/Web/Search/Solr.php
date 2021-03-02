@@ -36,14 +36,19 @@ class Solr
 
     public function getClient(): Client { return $this->client; }
 
-    public function query(string $search): ResultInterface
+    /**
+     * @param string $search
+     * @param int    $itemsPerPage
+     * @param int    $currentPage   Current page number starting from 1
+     */
+    public function query(string $search, int $itemsPerPage, int $currentPage): ResultInterface
     {
         $search = self::cleanInput($search);
         $query  = $this->client->createSelect([
             'query'   => $search,
             'fields'  => 'id,site,index_id,ss_type,ss_url,ss_title,ss_summary,score',
-            'start'   => 0,
-            'rows'    => 10,
+            'start'   => $currentPage - 1, // Solr page numbers start at 0
+            'rows'    => $itemsPerPage,
             'querydefaultfield' => self::DEFAULT_FIELD
         ]);
         $query->getHighlighting();
