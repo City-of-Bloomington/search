@@ -1,6 +1,7 @@
 {
     "require": {
         "php": ">=7.3",
+        "aura/di":     "~3",
         "aura/router": "~2",
         "graylog2/gelf-php":               "@stable",
         "laminas/laminas-log":             "@stable",

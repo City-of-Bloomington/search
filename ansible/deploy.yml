@@ -1,0 +1,60 @@
+---
+- hosts: 'search'
+  become: 'yes'
+  roles:
+    - 'City-of-Bloomington.php'
+
+  tasks:
+    - name: "Apache site configuration"
+      template:
+        src: "apache.conf"
+        dest: "/etc/apache2/sites-enabled/conf.d/search.conf"
+      notify: "apache_restart"
+
+    - name: "Create installation directories"
+      file:
+        path: "{{ item }}"
+        state: "directory"
+        owner: "www-data"
+        group: "staff"
+      with_items:
+        - "{{ search_install_path }}"
+        - "{{ search_site_home    }}"
+
+    - name: "Extract release"
+      unarchive:
+        src: "{{ search_archive_path }}"
+        dest: "/usr/local/src"
+      register: "release"
+
+    - name: "Install release"
+      command: "rsync -rl /usr/local/src/search/ {{ search_install_path }}/"
+      when: "release.changed"
+
+    - name: "Update site_home"
+      command: "rsync -rl /usr/local/src/search/data/ {{ search_site_home }}/"
+      when: "release.changed"
+
+    - name: "Update site_config"
+      template:
+        src: "site_config.j2"
+        dest: "{{ search_site_home }}/site_config.php"
+
+    - name: "Symlink the theme"
+      file:
+        state: "link"
+        src:  "{{ search_site_home    }}/Themes/COB/public"
+        dest: "{{ search_install_path }}/public/COB"
+
+    - name: "Update application permissions"
+      file:
+        path:    "{{ item }}"
+        state:   "directory"
+        owner:   "www-data"
+        group:   "staff"
+        mode:    "g+rw"
+        recurse: "yes"
+      with_items:
+        - "{{ search_install_path }}"
+        - "{{ search_site_home    }}"
+...

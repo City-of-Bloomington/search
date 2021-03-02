@@ -19,7 +19,7 @@ $route = $ROUTES->match($p, $_SERVER);
 if ($route) {
     if (isset($route->params['controller'])) {
         $class = $route->params['controller'];
-        $c     = new $c($DI); // $DI - Dependency Inject set up in bootstrap
+        $c     = new $class($DI); // $DI - Dependency Inject set up in bootstrap
         $view  = is_callable($c) ? $c($route->params) : new NotFoundView();
     }
 }

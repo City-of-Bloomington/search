@@ -6,6 +6,8 @@
 declare (strict_types=1);
 namespace Web\Search;
 
+use Web\Controller;
+
 class SearchController extends Controller
 {
     public function __invoke()

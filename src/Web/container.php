@@ -8,3 +8,7 @@ use Aura\Di\ContainerBuilder;
 
 $builder = new ContainerBuilder();
 $DI = $builder->newInstance();
+
+$DI->params ['Web\Search\Solr']['config'] = $SOLR['solr'];
+$DI->set    ('Web\Search\Solr',
+$DI->lazyNew('Web\Search\Solr'));

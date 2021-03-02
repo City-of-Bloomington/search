@@ -1,7 +1,11 @@
 build
 vendor
+ansible/roles/*
 site_config.php
 data/sessions/*
 *.cache
 *.css*
 *.mo
+.phpunit*
+*.retry
+make.conf

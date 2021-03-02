@@ -14,5 +14,8 @@ class SearchView extends Template
     public function __construct()
     {
         parent::__construct();
+        $this->blocks = [
+            new Block('searchForm.inc')
+        ];
     }
 }
