@@ -22,25 +22,37 @@ class SearchView extends Template
                                 int              $currentPage)
     {
         parent::__construct();
+        $results = [];
+        $facets  = [];
 
         if ($res) {
-            $h    = $res->getHighlighting();
-            $docs = [];
+            // Add highlighting information to the search results
             foreach ($res as $r) {
-                $f                 = $r->getFields();
-                $f['highlighting'] = self::getHighlighting($h, $r->id);
-                $docs[]            = $f;
+                $fields                 = $r->getFields();
+                $fields['highlighting'] = self::getHighlighting($res->getHighlighting(), $r->id);
+                $results[]              = $fields;
+            }
+
+            // Filter out facets we do not want to display
+            foreach ($res->getFacetSet() as $f => $facet) {
+                foreach ($facet as $value => $count) {
+                    // Only display if we have results for this value
+                    if ((int)$count) { $facets[$f][$value] = $count; }
+                }
             }
             $vars = [
                 'itemsPerPage' => $itemsPerPage,
                 'currentPage'  => $currentPage,
                 'total'        => $res->getNumFound(),
-                'results'      => $docs
+                'results'      => $results
             ];
         }
         else { $vars = null; }
 
-        $this->blocks = [ new Block('searchForm.inc', $vars) ];
+        $this->blocks = [
+            new Block('searchForm.inc', $vars),
+            'panel-one' => [ new Block('facets.inc', ['facets' => $facets]) ]
+        ];
     }
 
     private static function getHighlighting(Highlighting $highlighting, string $id): string

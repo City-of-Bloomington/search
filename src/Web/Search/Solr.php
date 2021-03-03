@@ -14,6 +14,8 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class Solr
 {
     public const DEFAULT_FIELD = 'tm_X3b_en_aggregated_field';
+    public static $FACETS      = ['index_id', 'ss_type'];
+
     private $client;
 
     /**
@@ -40,8 +42,12 @@ class Solr
      * @param string $search
      * @param int    $itemsPerPage
      * @param int    $currentPage   Current page number starting from 1
+     * @param array  $filters
      */
-    public function query(string $search, int $itemsPerPage, int $currentPage): ResultInterface
+    public function query(string $search,
+                             int $itemsPerPage,
+                             int $currentPage,
+                          ?array $filters=null): ResultInterface
     {
         $search = self::cleanInput($search);
         $query  = $this->client->createSelect([
@@ -52,6 +58,18 @@ class Solr
             'querydefaultfield' => self::DEFAULT_FIELD
         ]);
         $query->getHighlighting();
+
+        $facets = $query->getFacetSet();
+        foreach (self::$FACETS as $f) {
+            $facets->createFacetField($f)->setField($f);
+
+            if (!empty($filters[$f])) {
+                $query->createFilterQuery($f)
+                      ->setQuery("$f: ".self::cleanInput($filters[$f]));
+            }
+        }
+
+
         return $this->client->execute($query);
     }
 

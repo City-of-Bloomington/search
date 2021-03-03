@@ -17,8 +17,13 @@ class SearchController extends Controller
 		$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
 
         if (!empty($_GET['query'])) {
+            $filters = [];
+            foreach (Solr::$FACETS as $f) {
+                if (!empty($_GET[$f])) { $filters[$f] = $_GET[$f]; }
+            }
+
             $solr = $this->di->get('Web\Search\Solr');
-            $res  = $solr->query($_GET['query'], self::ITEMS_PER_PAGE, $page);
+            $res  = $solr->query($_GET['query'], self::ITEMS_PER_PAGE, $page, $filters);
         }
         else {
             $res = null;
