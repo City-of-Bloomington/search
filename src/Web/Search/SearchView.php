@@ -21,7 +21,9 @@ class SearchView extends Template
                                 int              $itemsPerPage,
                                 int              $currentPage)
     {
-        parent::__construct();
+        $format = !empty($_REQUEST['format']) ? $_REQUEST['format'] : 'html';
+        parent::__construct('default', $format);
+
         $results = [];
         $facets  = [];
 
@@ -49,10 +51,15 @@ class SearchView extends Template
         }
         else { $vars = null; }
 
-        $this->blocks = [
-            new Block('searchForm.inc', $vars),
-            'panel-one' => [ new Block('facets.inc', ['facets' => $facets]) ]
-        ];
+        if ($format == 'json') {
+            $this->blocks = [ new Block('searchResults.inc', ['result' => $res]) ];
+        }
+        else {
+            $this->blocks = [
+                new Block('searchForm.inc', $vars),
+                'panel-one' => [ new Block('facets.inc', ['facets' => $facets]) ]
+            ];
+        }
     }
 
     private static function getHighlighting(Highlighting $highlighting, string $id): string
