@@ -1,0 +1,37 @@
+.badge {
+  will-change: transform;
+  transition: all 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: $weight-semi-bold;
+  font-size: $size-m;
+  font-family: $font-text;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 $space-xxs 0 0;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 100px;
+
+  &.primary {
+    background: $color-blue;
+    color: white;
+  }
+
+  &.success {
+    background: tint($color-green-lighter, 30%);
+    color: shade($color-green-darker, 40%);
+  }
+
+  &.danger {
+    background: tint($color-vermilion-lighter, 30%);
+    color: shade($color-vermilion, 40%);
+  }
+
+  &.warning {
+    background: tint($color-ucla-gold-lighter, 30%);
+    color: shade($color-ucla-gold-darker, 40%);
+  }
+}

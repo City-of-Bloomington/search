@@ -6,5 +6,4 @@ dist
 site_config.php
 backup.cnf
 data/sessions/*
-public/COB
 .sass-cache

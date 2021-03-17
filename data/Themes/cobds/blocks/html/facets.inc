@@ -14,10 +14,18 @@ if ($this->facets) {
         $url = clone($current_url);
         if ($url->$k) { unset($url->$k); }
 
-        echo "<nav><header>$k</header><ul>";
+        echo "<nav><header>";
+            if ($k == 'index_id') { echo "Collection"; }
+            else if ($k == 'ss_type') { echo "Type"; }
+        echo "</header><ul>";
+
         foreach ($facet as $value => $count) {
             $url->$k = $value;
-            echo "<li><a href=\"$url\">$value: $count</a></li>";
+            echo "<li>
+                  <a href=\"$url\">$value
+                  <span class='badge primary'>$count</span>
+                  </a>
+                  </li>";
         }
         echo "</ul></nav>";
     }
