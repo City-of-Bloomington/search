@@ -57,7 +57,6 @@ class SearchView extends Template
         else {
             $this->blocks = [
                 new Block('searchForm.inc', $vars),
-                'sidebar' => [ new Block('facets.inc', ['facets' => $facets]) ],
                 'panel-one' => [ new Block('facets.inc', ['facets' => $facets]) ]
             ];
         }
