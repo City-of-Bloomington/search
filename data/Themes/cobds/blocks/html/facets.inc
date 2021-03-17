@@ -8,11 +8,11 @@ declare (strict_types=1);
 use Web\Url;
 
 if ($this->facets) {
-    $url = new Url(Url::current_url(BASE_HOST));
+    $current_url = new Url(Url::current_url(BASE_HOST));
 
     foreach ($this->facets as $k=>$facet) {
+        $url = clone($current_url);
         if ($url->$k) { unset($url->$k); }
-        
 
         echo "<nav><header>";
             if ($k == 'index_id') { echo "Collection"; }
