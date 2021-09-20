@@ -18,7 +18,7 @@ if (isset($this->total)) {
             </div>";
 
         foreach ($this->results as $d) {
-            $summary = $d['highlighting'] ?: ($d['ss_summary'] ?: '' );
+            $summary = $d['highlighting'] ?? $d['ss_summary'] ?? '';
             echo "<a class='result' title=\"$d[ss_title]\" href=\"$d[ss_url]\">
             <article>
               <header>
