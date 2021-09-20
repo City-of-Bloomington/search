@@ -10,13 +10,13 @@ use Web\Url;
 if ($this->facets) {
     $current_url = new Url(Url::current_url(BASE_HOST));
 
-    foreach ($this->facets as $k=>$facet) {
+    foreach ($this->facets as $field=>$values) {
         $url = clone($current_url);
-        if ($url->$k) { unset($url->$k); }
+        if ($url->$field) { unset($url->$field); }
 
-        echo "<nav><header>$k</header><ul>";
-        foreach ($facet as $value => $count) {
-            $url->$k = $value;
+        echo "<nav><header>$field</header><ul>";
+        foreach ($values as $value => $count) {
+            $url->$field = $value;
             echo "<li><a href=\"$url\">$value: $count</a></li>";
         }
         echo "</ul></nav>";
