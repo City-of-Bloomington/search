@@ -9,28 +9,36 @@
  */
 declare (strict_types=1);
 use Web\Paginator;
+use Web\Search\Solr;
+use Web\Url;
 
 if (isset($this->total)) {
     if ($this->total > 0) {
         echo "
         <div class=\"toolbar\">
-            <span>Total Results: $this->total</span>
+            <span>Total Results: {$this->total}</span>
             <span>Sort: :)</span>
         </div>
         ";
 
+        $current_url = new Url(Url::current_url(BASE_HOST));
         foreach ($this->results as $d) {
             $summary = $d['highlighting'] ?? $d['ss_summary'] ?? '';
             echo "
-            <a class='result' title=\"$d[ss_title]\" href=\"$d[ss_url]\">
                 <article>
                     <header>
-                        <h1>$d[ss_title]</h1>
-                        <span>$d[ss_url]</span>
+                          <h1><a href=\"$d[ss_url]\">$d[ss_title]</a></h1>
+                        <span><a href=\"$d[ss_url]\">$d[ss_url]</a></span>
                     </header>
                     <p>$summary</p>
+            ";
+            foreach (Solr::$FACETS as $field) {
+                $url = clone($current_url);
+                if (!empty($d[$field])) { $url->$field = $d[$field]; }
+                echo "<a href=\"$url\" class=\"badge primary\">{$d[$field]}</a>";
+            }
+            echo "
                 </article>
-            </a>
             ";
         }
 

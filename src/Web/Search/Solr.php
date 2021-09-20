@@ -32,7 +32,9 @@ class Solr
      */
     public function __construct(array $config)
     {
-        $this->client = new Client(new Curl(),
+        $curl         = new Curl();
+        $curl->setTimeout(10);
+        $this->client = new Client($curl,
                                    new EventDispatcher(),
                                    ['endpoint'=>['solr'=>$config]]);
     }
