@@ -25,8 +25,10 @@ if (isset($this->total)) {
             ";
             foreach (Solr::$FACETS as $field) {
                 $url = clone($current_url);
-                if (!empty($d[$field])) { $url->$field = $d[$field]; }
-                echo "<a href=\"$url\">$d[field]</a>";
+                if (!empty($d[$field])) {
+                    $url->$field = $d[$field];
+                    echo "<a href=\"$url\">{$d[$field]}</a>";
+                }
             }
             echo "
             </article>

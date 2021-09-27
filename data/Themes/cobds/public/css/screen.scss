@@ -102,46 +102,44 @@ main {
     }
   }
 
-  .result {
-    display: flex;
-    margin: 0 0 20px 0;
-    padding: 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    border: 1px solid transparent;
+  .results {
 
     &:nth-child(odd) {
       border: $border-default;
       background: lighten($color-grey-lighter, 2%);
     }
 
-    &:hover,
-    &:focus {
-      border: $border-default;
-      background: $color-grey-lighter;
-    }
 
     article {
-      header {
+        margin: 0 0 $size-m 0;
+        padding: $size-m;
+        border-radius: $radius-default;
+        border: 1px solid transparent;
+
+        a { text-decoration: none; }
+
+        &:hover,
+        &:focus {
+            border: $border-default;
+            background: $color-grey-lighter;
+        }
+
         h1 {
           color: $color-blue;
-          font-weight: 400;
-          font-size: 18px;
+          font-weight: $weight-normal;
+          font-size: $size-m;
         }
 
         span {
           display: block;
-          margin: 5px 0;
-          color: darken($color-grey-darker, 10%);
+          margin: $space-xxs 0;
+          a { color: darken($color-grey-darker, 10%); }
         }
-      }
 
-      p {
         em {
-          padding: 2px;
-          font-weight: 600;
+          padding: $spacing-xl;
+          font-weight: $weight-semi-bold;
         }
-      }
     }
   }
 }
