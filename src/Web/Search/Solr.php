@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class Solr
 {
     public const  DEFAULT_FIELD = 'tm_X3b_en_aggregated_field';
-    public static $FACETS       = ['index_id', 'ss_type', 'ss_board'];
+    public static $FACETS       = ['index_id', 'ss_type', 'ss_board', 'its_year'];
 
 
     private $client;
