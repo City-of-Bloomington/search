@@ -5,6 +5,9 @@
  * @param ResponseInterface $this->results
  */
 declare (strict_types=1);
+
+use Web\Url;
+use Web\Search\Solr;
 ?>
 <section>
     <header><h2>Search</h2></header>
@@ -18,6 +21,18 @@ declare (strict_types=1);
                 'label' => 'Search',
                 'value' => !empty($_GET['query']) ? parent::escape($_GET['query']) : ''
             ]);
+        ?>
+        </fieldset>
+        <fieldset>
+        <?php
+            $currentUrl = new Url(Url::current_url(BASE_HOST));
+            foreach ($_GET as $k=>$v) {
+                if (in_array($k, Solr::$FACETS)) {
+                    $url = clone($currentUrl);
+                    unset($url->$k);
+                    echo "<a href=\"$url\" class=\"delete\">$v</a>";
+                }
+            }
         ?>
         </fieldset>
     </form>

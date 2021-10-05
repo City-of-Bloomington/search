@@ -5,6 +5,8 @@
  * @param ResponseInterface $this->results
  */ 
 declare (strict_types=1);
+use Web\Url;
+use Web\Search\Solr;
 ?>
 <section class="form-wrapper">
     <form method="get" autocomplete="off">
@@ -20,6 +22,18 @@ declare (strict_types=1);
                 ]);
             ?>
             <button type="submit"><?= $this->_('search'); ?></button>
+        </fieldset>
+        <fieldset>
+        <?php
+            $currentUrl = new Url(Url::current_url(BASE_HOST));
+            foreach ($_GET as $k=>$v) {
+                if (in_array($k, Solr::$FACETS)) {
+                    $url = clone($currentUrl);
+                    unset($url->$k);
+                    echo "<a href=\"$url\" class=\"badge primary delete\">$v</a>";
+                }
+            }
+        ?>
         </fieldset>
     </form>
     <?php $this->_include('searchResults.inc'); ?>

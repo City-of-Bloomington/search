@@ -24,7 +24,7 @@ if ($this->facets) {
 
         foreach ($facet as $value => $count) {
             $url->$k = $value;
-            $label   = $this->template::$VALUES[$value] ?? ucfirst($value);
+            $label   = $this->template::$VALUES[$value] ?? ucfirst((string)$value);
             echo "
             <li><a href=\"$url\">
                     $label
