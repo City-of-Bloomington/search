@@ -37,7 +37,8 @@ if (isset($this->total)) {
                 $url = clone($current_url);
                 if (!empty($d[$field])) {
                     $url->$field = $d[$field];
-                    echo "<a href=\"$url\" class=\"badge primary\">{$d[$field]}</a>";
+                    $label       = $this->template::$VALUES[$d[$field]] ?? ucfirst((string)$d[$field]);
+                    echo "<a href=\"$url\" class=\"badge primary\">$label</a>";
                 }
             }
             echo "

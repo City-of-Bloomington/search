@@ -7,12 +7,6 @@
 declare (strict_types=1);
 use Web\Url;
 
-$facet_names = [
-    'index_id' => 'Collection',
-    'ss_type'  => 'Type',
-    'ss_board' => 'Board'
-];
-
 if ($this->facets) {
     $current_url = new Url(Url::current_url(BASE_HOST));
 
@@ -20,7 +14,7 @@ if ($this->facets) {
         $url = clone($current_url);
         if ($url->$k) { unset($url->$k); }
 
-        $label = $facet_names[$k] ?? $k;
+        $label = $this->template::$FIELDS[$k] ?? $k;
 
         echo "
         <nav>
@@ -30,9 +24,10 @@ if ($this->facets) {
 
         foreach ($facet as $value => $count) {
             $url->$k = $value;
+            $label   = $this->template::$VALUES[$value] ?? ucfirst($value);
             echo "
             <li><a href=\"$url\">
-                    $value
+                    $label
                     <span class='badge primary'>$count</span>
                 </a>
             </li>

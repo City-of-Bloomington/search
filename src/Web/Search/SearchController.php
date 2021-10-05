@@ -23,7 +23,11 @@ class SearchController extends Controller
             }
 
             $solr = $this->di->get('Web\Search\Solr');
-            $res  = $solr->query($_GET['query'], self::ITEMS_PER_PAGE, $page, $filters);
+            $res  = $solr->query($_GET['query'],
+                                 self::ITEMS_PER_PAGE,
+                                 $page,
+                                 array_keys(SearchView::$FIELDS),
+                                 $filters);
         }
         else {
             $res = null;

@@ -14,6 +14,34 @@ use Web\Template;
 
 class SearchView extends Template
 {
+    // Solr fields to use and their human readable labels.
+    public static $FIELDS = [
+        'id'         => 'id',
+        'site'       => 'site',
+        'index_id'   => 'index',
+        'ss_type'    => 'type',
+        'ss_board'   => 'board',
+        'ss_url'     => 'url',
+        'ss_title'   => 'title',
+        'ss_summary' => 'summary',
+        'score'      => 'score',
+        'its_year'   => 'year',
+        'ds_date'    => 'date',
+        'ds_changed' => 'changed'
+    ];
+    
+    // Human readable labels for various field values
+    public static $VALUES = [
+        'drupal'            => 'Website',
+        'basic_page'        => 'Webpage',
+        'guide_page'        => 'Guide',
+        'speeches_remarks'  => 'Speech',
+        'project_page'      => 'Project',
+        'parks_job_posting' => 'Parks Job Posting',
+        'board_commission'  => 'Board',
+        'job_posting'       => 'Job Posting'
+    ];
+    
     /**
      * @param int $currentPage   Current page number starting from 1
      */
