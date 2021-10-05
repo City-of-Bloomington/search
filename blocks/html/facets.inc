@@ -13,11 +13,14 @@ if ($this->facets) {
     foreach ($this->facets as $field=>$values) {
         $url = clone($current_url);
         if ($url->$field) { unset($url->$field); }
+        
+        $label = $this->template::$FACETS[$field] ?? $field;
 
-        echo "<nav><header>$field</header><ul>";
+        echo "<nav><header>$label</header><ul>";
         foreach ($values as $value => $count) {
             $url->$field = $value;
-            echo "<li><a href=\"$url\">$value: $count</a></li>";
+            $label       = $this->template::$VALUES[$value] ?? $value;
+            echo "<li><a href=\"$url\">$label: $count</a></li>";
         }
         echo "</ul></nav>";
     }
