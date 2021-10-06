@@ -13,16 +13,17 @@ use Web\Search\Solr;
     <header><h2><?= $this->_('search'); ?></h2></header>
     <form method="get">
         <fieldset>
-        <?php
-            $h = $this->template->getHelper('field');
-            echo $h->field([
-                'name'        => 'query',
-                'id'          => 'query',
-                'label'       => $this->_('search'),
-                'placeholder' => $this->_('search'),
-                'value'       => !empty($_GET['query']) ? parent::escape($_GET['query']) : ''
-            ]);
-        ?>
+            <?php
+                $h = $this->template->getHelper('field');
+                echo $h->field([
+                    'name'        => 'query',
+                    'id'          => 'query',
+                    'label'       => $this->_('search'),
+                    'placeholder' => $this->_('search'),
+                    'value'       => !empty($_GET['query']) ? parent::escape($_GET['query']) : ''
+                ]);
+            ?>
+            <button type="submit" class="search"><?= $this->_('search'); ?></button>
         </fieldset>
         <fieldset>
         <?php
