@@ -37,8 +37,7 @@ if (isset($this->total)) {
                 $url = clone($current_url);
                 if (!empty($d[$field])) {
                     $url->$field = $d[$field];
-                    $label       = $this->template::$VALUES[$d[$field]] ?? ucfirst((string)$d[$field]);
-                    echo "<a href=\"$url\" class=\"badge primary\">$label</a>";
+                    echo "<a href=\"$url\" class=\"badge primary\">{$this->_($d[$field])}</a>";
                 }
             }
             echo "
@@ -59,6 +58,6 @@ if (isset($this->total)) {
         }
     }
     else {
-        echo '<p>No results found.</p>';
+        echo sprintf($this->_('no_results', 'messages'), 'results');
     }
 }

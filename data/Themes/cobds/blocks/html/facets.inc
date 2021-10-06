@@ -14,20 +14,17 @@ if ($this->facets) {
         $url = clone($current_url);
         if ($url->$k) { unset($url->$k); }
 
-        $label = $this->template::$FIELDS[$k] ?? $k;
-
         echo "
         <nav>
-            <header>$label</header>
+            <header>{$this->_($k)}</header>
             <ul>
         ";
 
         foreach ($facet as $value => $count) {
             $url->$k = $value;
-            $label   = $this->template::$VALUES[$value] ?? ucfirst((string)$value);
             echo "
             <li><a href=\"$url\">
-                    $label
+                    {$this->_($value)}
                     <span class='badge primary'>$count</span>
                 </a>
             </li>

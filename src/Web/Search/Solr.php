@@ -15,6 +15,11 @@ class Solr
 {
     public const  DEFAULT_FIELD = 'tm_X3b_en_aggregated_field';
     public static $FACETS       = ['index_id', 'ss_type', 'ss_board', 'its_year'];
+    public static $FIELDS = [
+        'id', 'site', 'index_id', 'score',
+        'ss_type', 'ss_board', 'ss_url', 'ss_title', 'ss_summary',
+        'its_year', 'ds_date', 'ds_changed'
+    ];
 
     private $client;
 
@@ -40,16 +45,9 @@ class Solr
 
     public function getClient(): Client { return $this->client; }
 
-    /**
-     * @param string $search
-     * @param int    $itemsPerPage
-     * @param int    $currentPage   Current page number starting from 1
-     * @param array  $filters
-     */
     public function query(string $search,
                              int $itemsPerPage,
-                             int $currentPage,
-                           array $fields,
+                             int $currentPage, // Page number starting at 1
                           ?array $filters=null): ResultInterface
     {
         $query  = $this->client->createSelect();
@@ -58,7 +56,7 @@ class Solr
         $query->getHighlighting();
 
         $query->setQuery (self::cleanInput($search));
-        $query->setFields(implode(',', $fields));
+        $query->setFields(implode(',', self::$FIELDS));
         $query->setStart ($currentPage - 1); // Solr pagination starts at 0
         $query->setRows  ($itemsPerPage);
 
