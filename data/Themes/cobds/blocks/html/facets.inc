@@ -16,6 +16,7 @@ if ($this->facets) {
         if ($url->$k) { unset($url->$k); }
 
         $openAttribute = ($i == 0) ? 'open' : '';
+        $label = _($k);
         $label = $this->template::$FIELDS[$k] ?? $k;
 
         echo "<details $openAttribute>
