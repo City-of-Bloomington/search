@@ -34,7 +34,7 @@ class SearchView extends Template
     public static $VALUES = [
         'drupal'            => 'Website',
         'basic_page'        => 'Webpage',
-        'guide_page'        => 'Guide',
+        'Guide_page'        => 'Guide',
         'speeches_remarks'  => 'Speech',
         'project_page'      => 'Project',
         'parks_job_posting' => 'Parks Job Posting',

@@ -10,13 +10,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 $space-xxs 0 0;
-  padding: 0 8px;
+  margin: 0 $space-xs 0 0;
+  padding: 2px 8px;
   border: 0;
   border-radius: 100px;
+  height: fit-content;
+  width: fit-content;
+  position: relative;
 
   &.primary {
     background: $color-blue;
+    color: white;
+  }
+
+  &.grey {
+    background: lighten($text-color, 10%);
     color: white;
   }
 
@@ -33,5 +41,42 @@
   &.warning {
     background: tint($color-ucla-gold-lighter, 30%);
     color: shade($color-ucla-gold-darker, 40%);
+  }
+
+  &.neutral {
+    border: $border-default;
+    background: lighten($color-grey-lighter, 2%);
+    color: lighten($text-color, 10%);
+
+    &:hover,
+    &:focus {
+      border: $border-default;
+      background: lighten($color-grey-lighter, 2%);
+    }
+  }
+
+  &.dissmissable {
+    padding: 2px 25px 2px 8px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: 5px;
+      width: 10px;
+      height: 15px;
+      background-repeat: no-repeat;
+      background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='times' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 352 512' class='svg-inline--fa fa-times fa-w-11 fa-3x'%3E%3Cpath fill='%23eb3b24' d='M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z' class=''%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    &:hover,
+    &:focus {
+      background: $color-mayor-pomegranate;
+      color: white;
+
+      &:after {
+        background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='times' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 352 512' class='svg-inline--fa fa-times fa-w-11 fa-3x'%3E%3Cpath fill='white' d='M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z' class=''%3E%3C/path%3E%3C/svg%3E");
+      }
+    }
   }
 }

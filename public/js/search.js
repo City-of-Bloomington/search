@@ -1,1 +1,3 @@
-console.log("Made with <3 by https://bloomington.in.gov/departments/its");
+console.log(
+  "Made with ❤️ in Bloomington, Indiana @ https://bloomington.in.gov/departments/its"
+);

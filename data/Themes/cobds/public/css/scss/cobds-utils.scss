@@ -38,6 +38,20 @@ $color-green-light: rgb(124, 197, 126);
 $color-grey-lighter: rgb(242, 242, 242);
 $color-blue-dark: rgb(27, 81, 157);
 $color-vermilion: rgb(235, 59, 36);
+
+// New Mayor Colors
+$color-mayor-biscay: #182d5a;
+$color-mayor-eminence: #662d91;
+$color-mayor-sushi: #8dc63f;
+$color-mayor-curious-blue: #27aae1;
+$color-mayor-tree-poppy: #f7941d;
+$color-mayor-shakespeare: #3fc1cb;
+$color-mayor-school-bus-yellow: #fbd801;
+$color-mayor-natural-gray: #939291;
+$color-mayor-abbey: #4a4a4b;
+$color-mayor-pomegranate: #eb3b24;
+$color-mayor-fun-blue: #1e5aae;
+
 $size-xxxl: 48px;
 $size-xxl: 36px;
 $size-xl: 30px;
@@ -45,8 +59,13 @@ $size-l: 24px;
 $size-m: 16px;
 $size-s: 14px;
 $size-xs: 12px;
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,400;1,600&display=swap");
+
 $font-heading: "IBM Plex Sans", Helvetica, Arial, sans-serif;
 $font-text: "IBM Plex Sans", Helvetica, Arial, sans-serif;
+$fontIBM: "IBM Plex Sans", Helvetica, Arial, sans-serif;
+
 $weight-bold: 700;
 $weight-semi-bold: 600;
 $weight-normal: 400;
@@ -86,6 +105,25 @@ $line-height-xs: 1;
 $border-default: 1px solid $color-grey-light;
 $text-color: darken($color-grey, 55%);
 $color-fern: #4caf50;
+
+@mixin visuallyHidden() {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+@mixin clearfix {
+  &:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+}
 
 /* VUE DESIGN SYSTEM SPACING HELPERS
 --------------------------------------------- */
