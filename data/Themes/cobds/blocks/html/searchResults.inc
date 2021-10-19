@@ -14,32 +14,40 @@ use Web\Url;
 
 if (isset($this->total)) {
     if ($this->total > 0) {
-        echo "
-        <div class=\"toolbar\">
-            <span>Total Results: {$this->total}</span>
-            <span>Sort: :)</span>
-        </div>
-        <div class=\"results\">
-        ";
+
+        $currentUrl = new Url(Url::current_url(BASE_HOST));
+        $totalCountFormat = number_format($this->total, 0, '.', ',');
+
+
+        echo "<div class=\"toolbar\">
+                <span>Total Results: $totalCountFormat</span>
+                <span>Filtering By:</span>";
+
+        foreach ($_GET as $k=>$v) {
+            if (in_array($k, Solr::$FACETS)) {
+                $url = clone($currentUrl);
+                unset($url->$k);
+                echo "<a href=\"$url\"
+                         class=\"badge neutral dissmissable\"
+                         title=\"remove filter\">$v</a>";
+            }
+        }
+
+        echo "</div>";
+
+        echo "<div class=\"results\">";
 
         $current_url = new Url(Url::current_url(BASE_HOST));
         foreach ($this->results as $d) {
             $summary = $d['highlighting'] ?? $d['ss_summary'] ?? '';
             echo "
-            <article>
+            <article class=\"result\">
                 <header>
-                      <h1><a href=\"$d[ss_url]\">$d[ss_title]</a></h1>
+                    <h1>$d[ss_title]</h1>
                     <span><a href=\"$d[ss_url]\">$d[ss_url]</a></span>
                 </header>
                 <p>$summary</p>
             ";
-            foreach (Solr::$FACETS as $field) {
-                $url = clone($current_url);
-                if (!empty($d[$field])) {
-                    $url->$field = $d[$field];
-                    echo "<a href=\"$url\" class=\"badge primary\">{$this->_($d[$field])}</a>";
-                }
-            }
             echo "
             </article>
             ";

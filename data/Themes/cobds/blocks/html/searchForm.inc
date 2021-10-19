@@ -23,18 +23,6 @@ use Web\Search\Solr;
             ?>
             <button type="submit"><?= $this->_('search'); ?></button>
         </fieldset>
-        <fieldset>
-        <?php
-            $currentUrl = new Url(Url::current_url(BASE_HOST));
-            foreach ($_GET as $k=>$v) {
-                if (in_array($k, Solr::$FACETS)) {
-                    $url = clone($currentUrl);
-                    unset($url->$k);
-                    echo "<a href=\"$url\" class=\"badge primary delete\">{$this->_($v)}</a>";
-                }
-            }
-        ?>
-        </fieldset>
     </form>
     <?php $this->_include('searchResults.inc'); ?>
 </section>

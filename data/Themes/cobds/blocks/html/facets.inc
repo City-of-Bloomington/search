@@ -9,30 +9,32 @@ use Web\Url;
 
 if ($this->facets) {
     $current_url = new Url(Url::current_url(BASE_HOST));
+    $i = 0;
 
     foreach ($this->facets as $k=>$facet) {
         $url = clone($current_url);
         if ($url->$k) { unset($url->$k); }
 
-        echo "
-        <nav>
-            <header>{$this->_($k)}</header>
-            <ul>
-        ";
+        $openAttribute = ($i == 0) ? 'open' : '';
+        $label = $this->template::$FIELDS[$k] ?? $k;
+
+        echo "<details $openAttribute>
+                <summary>$label</summary>
+                <ul>";
 
         foreach ($facet as $value => $count) {
             $url->$k = $value;
-            echo "
-            <li><a href=\"$url\">
-                    {$this->_($value)}
-                    <span class='badge primary'>$count</span>
-                </a>
-            </li>
-            ";
+            $label   = $this->template::$VALUES[$value] ?? ucfirst((string)$value);
+            $facetCountFormat = number_format($count, 0, '.', ',');
+
+            echo "<li>
+                    <a href=\"$url\">$label
+                        <span class='badge grey'>$facetCountFormat</span>
+                    </a>
+                  </li>";
         }
-        echo "
-            </ul>
-        </nav>
-        ";
+
+        echo "</ul></details>";
+        ++$i;
     }
 }
