@@ -26,7 +26,6 @@ class SearchController extends Controller
             $res  = $solr->query($_GET['query'],
                                  self::ITEMS_PER_PAGE,
                                  $page,
-                                 array_keys(SearchView::$FIELDS),
                                  $filters);
         }
         else {

@@ -17,12 +17,12 @@ if (isset($this->total)) {
 
         $currentUrl = new Url(Url::current_url(BASE_HOST));
         $totalCountFormat = number_format($this->total, 0, '.', ',');
-        
+
 
         echo "<div class=\"toolbar\">
                 <span>Total Results: $totalCountFormat</span>
                 <span>Filtering By:</span>";
-            
+
         foreach ($_GET as $k=>$v) {
             if (in_array($k, Solr::$FACETS)) {
                 $url = clone($currentUrl);
@@ -32,7 +32,7 @@ if (isset($this->total)) {
                          title=\"remove filter\">$v</a>";
             }
         }
-        
+
         echo "</div>";
 
         echo "<div class=\"results\">";
@@ -48,14 +48,6 @@ if (isset($this->total)) {
                 </header>
                 <p>$summary</p>
             ";
-            // foreach (Solr::$FACETS as $field) {
-            //     $url = clone($current_url);
-            //     if (!empty($d[$field])) {
-            //         $url->$field = $d[$field];
-            //         $label       = $this->template::$VALUES[$d[$field]] ?? ucfirst((string)$d[$field]);
-            //         echo "<a href=\"$url\" class=\"badge primary\">$label</a>";
-            //     }
-            // }
             echo "
             </article>
             ";
@@ -74,6 +66,6 @@ if (isset($this->total)) {
         }
     }
     else {
-        echo '<p>No results found.</p>';
+        echo sprintf($this->_('no_results', 'messages'), 'results');
     }
 }

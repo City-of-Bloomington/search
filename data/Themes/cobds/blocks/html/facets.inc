@@ -36,6 +36,6 @@ if ($this->facets) {
         }
 
         echo "</ul></details>";
-        ++$i;    
+        ++$i;
     }
 }
