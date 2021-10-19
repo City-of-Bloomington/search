@@ -49,6 +49,8 @@ define('TIME_FORMAT',    'g:i a');
 define('DATETIME_FORMAT', DATE_FORMAT.' '.TIME_FORMAT);
 define('LOCALE', 'en_US');
 
+
+{% if search_graylog.host %}
 /**
  * Graylog is a centralized log manager
  *
@@ -56,5 +58,6 @@ define('LOCALE', 'en_US');
  * This is handy for notifying developers of a problem before users notice.
  ** @see https://graylog.org
  */
-#define('GRAYLOG_DOMAIN', 'graylog.example.org');
-#define('GRAYLOG_PORT',   12200);
+define('GRAYLOG_DOMAIN', '{{ search_graylog.host }}');
+define('GRAYLOG_PORT',    {{ search_graylog.port }});
+{% endif %}
