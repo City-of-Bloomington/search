@@ -74,6 +74,7 @@ class Solr
 //         $dismax->setBoostFunctionsMult("if(eq(ss_type,'news'),0.1,1) recip(ms(NOW,ds_changed),1,1000,1000)");
 
         $facets = $query->getFacetSet();
+        $facets->setMinCount(1);
         foreach (self::$FACETS as $f) {
             $facets->createFacetField($f)->setField($f);
 
