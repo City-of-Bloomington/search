@@ -13,6 +13,7 @@ if (count($pages->pagesInRange) > 1) {
 
 	$url = new Url(Url::current_url(BASE_HOST));
 	$url->purgeEmptyParameters();
+	$maxNumLinks = 3;
 
 	echo '<nav class="pagination">';
 
@@ -25,7 +26,6 @@ if (count($pages->pagesInRange) > 1) {
 		echo "<a href=\"$url\" class=\"previous\">Back</a>";
 	}
 	// Show the page number links
-	// Show only $maxNumLinks pages at a time
 	foreach ($pages->pagesInRange as $page) {
 		$url->page = $page;
 		$class = ($page == $pages->current) ? 'class="current"' : '';

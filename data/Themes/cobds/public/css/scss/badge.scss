@@ -17,10 +17,23 @@
   height: fit-content;
   width: fit-content;
   position: relative;
+  white-space: pre;
 
   &.primary {
     background: $color-blue;
     color: white;
+
+    &.outline {
+      background: transparent;
+      color: $color-blue;
+      border: 1px solid $color-blue;
+
+      &:hover,
+      &:focus {
+        background: $color-blue;
+        color: white;
+      }
+    }
   }
 
   &.grey {

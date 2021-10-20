@@ -17,7 +17,6 @@ if ($this->facets) {
 
         $openAttribute = ($i == 0) ? 'open' : '';
         $label = _($k);
-        $label = $this->template::$FIELDS[$k] ?? $k;
 
         echo "<details $openAttribute>
                 <summary>$label</summary>
@@ -25,11 +24,10 @@ if ($this->facets) {
 
         foreach ($facet as $value => $count) {
             $url->$k = $value;
-            $label   = $this->template::$VALUES[$value] ?? ucfirst((string)$value);
             $facetCountFormat = number_format($count, 0, '.', ',');
 
             echo "<li>
-                    <a href=\"$url\">$label
+                    <a href=\"$url\">{$this->_($value)}
                         <span class='badge grey'>$facetCountFormat</span>
                     </a>
                   </li>";

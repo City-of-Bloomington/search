@@ -18,10 +18,11 @@ if (isset($this->total)) {
         $currentUrl = new Url(Url::current_url(BASE_HOST));
         $totalCountFormat = number_format($this->total, 0, '.', ',');
 
+         echo "<div class=\"results\">";
 
         echo "<div class=\"toolbar\">
                 <span>Total Results: $totalCountFormat</span>
-                <span>Filtering By:</span>";
+                <span>Filtering By: &nbsp;";
 
         foreach ($_GET as $k=>$v) {
             if (in_array($k, Solr::$FACETS)) {
@@ -29,13 +30,13 @@ if (isset($this->total)) {
                 unset($url->$k);
                 echo "<a href=\"$url\"
                          class=\"badge neutral dissmissable\"
-                         title=\"remove filter\">$v</a>";
+                         title=\"remove filter\">{$this->_($v)}</a>";
             }
         }
 
-        echo "</div>";
+        echo "</span></div>";
 
-        echo "<div class=\"results\">";
+       
 
         $current_url = new Url(Url::current_url(BASE_HOST));
         foreach ($this->results as $d) {
@@ -44,13 +45,35 @@ if (isset($this->total)) {
             <article class=\"result\">
                 <header>
                     <h1>$d[ss_title]</h1>
-                    <span><a href=\"$d[ss_url]\">$d[ss_url]</a></span>
+
+                    <span>
+                        <strong>Last Change:</strong>&nbsp;" . date_format (new DateTime($d['ds_changed']), 'm-d-Y') . "
+                    </span>
+
+                    <span>
+                        <strong>Created Date:</strong>&nbsp;" . date_format (new DateTime($d['ds_date']), 'm-d-Y') . " 
+                    </span>
+
+                    <span>
+                        <a
+                            href=\"$d[ss_url]\"
+                            title=\"$d[ss_title]\">$d[ss_url]</a>
+                    </span>              
                 </header>
-                <p>$summary</p>
-            ";
-            echo "
-            </article>
-            ";
+                <p>$summary</p>";
+                
+            
+
+             foreach (Solr::$FACETS as $field) {
+                $url = clone($current_url);
+                if (!empty($d[$field])) {
+                    $url->$field = $d[$field];
+                    echo "<a href=\"$url\" class=\"badge primary outline\">{$this->_($d[$field])}</a>";
+                }
+            }
+
+            echo "</article>";
+            echo '<pre>'; print_r($d); echo '</pre>';
         }
         echo "
         </div>
@@ -60,7 +83,8 @@ if (isset($this->total)) {
             $this->paginator = new Paginator(
                 $this->total,
                 $this->itemsPerPage,
-                $this->currentPage
+                $this->currentPage,
+                5
             );
             $this->_include('pageNavigation.inc');
         }

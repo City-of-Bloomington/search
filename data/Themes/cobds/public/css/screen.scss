@@ -27,6 +27,10 @@ body {
   font-family: $fontIBM;
 }
 
+strong {
+  font-weight: 600;
+}
+
 main {
   > .content {
     display: flex;
@@ -46,6 +50,7 @@ main {
         border-radius: $radius-default;
         margin: 0 0 20px 0;
         padding: 20px 20px 15px 20px;
+        word-break: break-word;
 
         &:last-child {
           margin: 0;
@@ -80,10 +85,14 @@ main {
             right: 0;
           }
 
-          &::marker,
           &::-webkit-details-marker {
-            color: red;
+            display: none;
           }
+        }
+
+        &::marker,
+        &::-webkit-details-marker {
+          color: red;
         }
 
         &:hover,
@@ -91,6 +100,40 @@ main {
           -webkit-box-shadow: 0 0.2rem 0.9rem 0 rgba(0, 0, 0, 0.05);
           box-shadow: 0 0.2rem 0.9rem 0 rgba(0, 0, 0, 0.05);
         }
+
+        &.mobile {
+          display: none;
+
+          header,
+          summary {
+            outline: none;
+          }
+        }
+
+        @media all and (max-width: 767px) {
+          &.mobile {
+            display: block;
+            background: transparent;
+            border: none;
+            padding: 0;
+            box-shadow: none;
+
+            > summary {
+              color: $text-color;
+              font-weight: 600;
+              // font-size: 18px;
+              // line-height: 22px;
+              margin: 0 0 15px 0;
+            }
+          }
+
+          &.full {
+            display: none;
+          }
+        }
+      }
+
+      @media all and (max-width: 767px) {
       }
 
       ul {
@@ -140,6 +183,43 @@ main {
           }
         }
       }
+
+      @media all and (max-width: 767px) {
+        // background: red;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+
+        .full {
+          display: none;
+        }
+      }
+
+      // @media all and (min-width: 768px) {
+      //   background: green;
+      //   width: 100%;
+      //   padding: 0;
+      // }
+
+      // @media all and (min-width: 920px) {
+      //   background: yellow;
+      //   width: 100%;
+      // }
+    }
+  }
+
+  .results-wrapper {
+    position: relative;
+    top: 0;
+    z-index: 1;
+    width: calc(100% - 320px);
+    padding: 0;
+    border: none;
+    background-color: transparent;
+
+    @media all and (max-width: 767px) {
+      width: 100%;
+      margin: 0;
     }
   }
 
@@ -147,12 +227,13 @@ main {
     .result {
       display: block;
       margin: 0 0 $size-m 0;
-      padding: $size-m;
+      padding: $size-m $size-m $size-m/2 $size-m;
       border-radius: $radius-default;
       border: 1px solid transparent;
       text-decoration: none;
+      word-break: break-word;
 
-      &:nth-child(odd) {
+      &:nth-child(even) {
         border: $border-default;
         background: lighten($color-grey-lighter, 2%);
       }
@@ -172,18 +253,20 @@ main {
       }
 
       header {
-        margin: 0 0 $space-xs 0;
+        margin: 0;
 
         h1 {
           color: $text-color;
           font-weight: $weight-semi-bold;
           font-size: $size-m + 2;
           line-height: $size-m + 6;
-          margin: 0 0 $space-xxs 0;
+          margin: 0 0 $size-m/2 0;
         }
 
         span {
           font-size: $size-s;
+          display: block;
+          margin: 0 0 $size-m/2 0;
 
           a {
             // color: $text-color;
@@ -197,6 +280,17 @@ main {
             }
           }
         }
+
+        @media all and (max-width: 767px) {
+          span {
+            margin: 0 0 10px 0;
+          }
+        }
+      }
+
+      .badge {
+        font-size: 14px;
+        margin: 0 8px 8px 0;
       }
 
       p {
@@ -220,5 +314,9 @@ main {
     margin: 0 20px 0 0;
     font-weight: 600;
     line-height: 24px;
+  }
+
+  @media all and (max-width: 767px) {
+    margin: 20px 0;
   }
 }
