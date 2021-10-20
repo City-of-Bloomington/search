@@ -73,7 +73,7 @@ if (isset($this->total)) {
             }
 
             echo "</article>";
-            echo '<pre>'; print_r($d); echo '</pre>';
+            // echo '<pre>'; print_r($d); echo '</pre>';
         }
         echo "
         </div>
