@@ -104,9 +104,19 @@ main {
         &.mobile {
           display: none;
 
-          header,
-          summary {
-            outline: none;
+          &[open] {
+            > summary::before {
+              content: "\2715";
+            }
+          }
+
+          > header,
+          > summary {
+            &::before {
+              content: "\2630";
+              position: absolute;
+              right: 0;
+            }
           }
         }
 
