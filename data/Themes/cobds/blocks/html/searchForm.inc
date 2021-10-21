@@ -23,5 +23,5 @@ use Web\Url; use Web\Search\Solr; ?>
       <button type="submit"><?= $this->_('search'); ?></button>
     </fieldset>
   </form>
-  <?php $this->_include('searchResults.inc'); ?>
+  <?php if ($this->results) { $this->_include('searchResults.inc'); } ?>
 </section>
