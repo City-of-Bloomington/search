@@ -9,3 +9,4 @@ data/sessions/*
 .phpunit*
 *.retry
 make.conf
+*.DS_Store
