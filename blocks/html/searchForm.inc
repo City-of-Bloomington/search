@@ -38,7 +38,5 @@ use Web\Search\Solr;
         ?>
         </fieldset>
     </form>
-    <?php
-        $this->_include('searchResults.inc');
-    ?>
+    <?php if ($this->results) { $this->_include('searchResults.inc'); } ?>
 </section>
