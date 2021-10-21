@@ -1,0 +1,136 @@
+# Translation
+# Copyright (C) 2021 City of Bloomington
+domain "labels"
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Monroe\n"
+"Report-Msgid-Bugs-To: dev@bloomington.in.gov\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Cliff Ingham <inghamn@bloomington.in.gov>\n"
+"Language-Team: City of Bloomington <dev@bloomington.in.gov>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en_US\n"
+
+msgid "home"
+msgstr "Home"
+
+msgid "add"
+msgstr "Add"
+
+msgid "edit"
+msgstr "Edit"
+
+msgid "delete"
+msgstr "Delete"
+
+msgid "search"
+msgstr "Search"
+
+msgid "submit"
+msgstr "Submit"
+
+msgid "save"
+msgstr "Save"
+
+msgid "cancel"
+msgstr "Cancel"
+
+msgid "site"
+msgstr "Site"
+
+msgid "index_id"
+msgstr "Index"
+
+msgid "ss_type"
+msgstr "Type"
+
+msgid "ss_board"
+msgstr "Board"
+
+msgid "ss_url"
+msgstr "URL"
+
+msgid "ss_title"
+msgstr "Title"
+
+msgid "ss_summary"
+msgstr "Summary"
+
+msgid "its_year"
+msgstr "Year"
+
+msgid "ds_date"
+msgstr "Date"
+
+msgid "ds_changed"
+msgstr "Changed"
+
+msgid "drupal"
+msgstr "Website"
+
+msgid "basic_page"
+msgstr "Webpage"
+
+msgid "bids"
+msgstr "Bid"
+
+msgid "board_commission"
+msgstr "Board"
+
+msgid "department"
+msgstr "Department"
+
+msgid "division"
+msgstr "Division"
+
+msgid "guide_page"
+msgstr "Guide"
+
+msgid "job_posting"
+msgstr "Job Posting"
+
+msgid "location"
+msgstr "Location"
+
+msgid "news"
+msgstr "News"
+
+msgid "parks_category"
+msgstr "Parks Activity"
+
+msgid "parks_job_posting"
+msgstr "Parks Job Posting"
+
+msgid "person"
+msgstr "Person"
+
+msgid "project_page"
+msgstr "Project"
+
+msgid "speeches_remarks"
+msgstr "Speech"
+
+msgid "success"
+msgstr "Innovation Story"
+
+msgid "vendor"
+msgstr "Vendor"
+
+msgid "vendor_prepared_food"
+msgstr "Food Vendor"
+
+msgid "onboard"
+msgstr "Boards & Commissions"
+
+msgid "agenda"
+msgstr "Agenda"
+
+msgid "minutes"
+msgstr "Minutes"
+
+msgid "packet"
+msgstr "Packet"

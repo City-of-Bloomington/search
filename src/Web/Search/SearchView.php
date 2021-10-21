@@ -64,6 +64,6 @@ class SearchView extends Template
 
     private static function getHighlighting(Highlighting $highlighting, string $id): string
     {
-        return $highlighting->getResult($id)->getField(Solr::DEFAULT_FIELD)[0] ?: '';
+        return $highlighting->getResult($id)->getField(Solr::DEFAULT_FIELD)[0] ?? '';
     }
 }

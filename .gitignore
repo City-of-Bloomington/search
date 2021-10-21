@@ -6,6 +6,7 @@ data/sessions/*
 *.cache
 *.css*
 *.mo
+*-*.js
 .phpunit*
 *.retry
 make.conf

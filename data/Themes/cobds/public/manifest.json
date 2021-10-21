@@ -1,0 +1,22 @@
+{
+  "name": "Search | City of Bloomington, Indiana",
+  "short_name": "Search",
+  "theme_color": "#1e5aae",
+  "background_color": "#ffffff",
+  "display": "browser",
+  "orientation": "portrait",
+  "scope": "/search",
+  "start_url": "/search",
+  "icons": [
+    {
+      "src": "images/favicon/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "images/favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

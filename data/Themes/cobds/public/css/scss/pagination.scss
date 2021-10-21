@@ -1,0 +1,59 @@
+.pagination {
+  display: flex;
+  margin: 30px 0;
+  padding: 30px 0 0 0;
+  border-top: $border-default;
+
+  a {
+    color: $color-blue;
+    font-size: $size-m;
+    font-family: $font-text;
+    text-decoration: none;
+    border-radius: 0;
+    padding: $space-xs $space-s;
+    margin: 0;
+    border: 1px solid $color-grey-dark;
+
+    &:hover {
+      background-color: $color-grey-light;
+    }
+
+    &[disabled="disabled"] {
+      background: $color-grey-light;
+      color: shade($color-grey-darker, 20%);
+      cursor: not-allowed;
+    }
+
+    &:first-child {
+      -webkit-border-top-left-radius: $radius_default;
+      -webkit-border-bottom-left-radius: $radius_default;
+      -moz-border-radius-topleft: $radius_default;
+      -moz-border-radius-bottomleft: $radius_default;
+      border-top-left-radius: $radius_default;
+      border-bottom-left-radius: $radius_default;
+    }
+
+    &:last-child {
+      -webkit-border-top-right-radius: $radius_default;
+      -webkit-border-bottom-right-radius: $radius_default;
+      -moz-border-radius-topright: $radius_default;
+      -moz-border-radius-bottomright: $radius_default;
+      border-top-right-radius: $radius_default;
+      border-bottom-right-radius: $radius_default;
+    }
+
+    &:last-of-type,
+    &:not(:first-child) {
+      margin-left: -1px;
+    }
+
+    &.current {
+      background: $color-blue;
+      color: white;
+    }
+
+    // @media all and (max-width: 767px) {
+    //   padding: 8px 6px;
+    // }
+  }
+}

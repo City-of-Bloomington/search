@@ -8,15 +8,16 @@ declare (strict_types=1);
 use Web\Url;
 
 if ($this->facets) {
-    $url = new Url(Url::current_url(BASE_HOST));
+    $current_url = new Url(Url::current_url(BASE_HOST));
 
-    foreach ($this->facets as $k=>$facet) {
-        if ($url->$k) { unset($url->$k); }
+    foreach ($this->facets as $field=>$values) {
+        $url = clone($current_url);
+        if ($url->$field) { unset($url->$field); }
 
-        echo "<nav><header>$k</header><ul>";
-        foreach ($facet as $value => $count) {
-            $url->$k = $value;
-            echo "<li><a href=\"$url\">$value: $count</a></li>";
+        echo "<nav><header>{$this->_($field)}</header><ul>";
+        foreach ($values as $value => $count) {
+            $url->$field = $value;
+            echo "<li><a href=\"$url\">{$this->_($value)}: $count</a></li>";
         }
         echo "</ul></nav>";
     }

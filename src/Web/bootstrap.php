@@ -32,8 +32,8 @@ include APPLICATION_HOME.'/src/Web/container.php';
 include APPLICATION_HOME.'/src/Web/routes.php';
 
 if (defined('GRAYLOG_DOMAIN') && defined('GRAYLOG_PORT')) {
-    $graylog = new Application\GraylogWriter(GRAYLOG_DOMAIN, GRAYLOG_PORT);
-    $logger  = new Zend\Log\Logger();
+    $graylog = new Web\GraylogWriter(GRAYLOG_DOMAIN, GRAYLOG_PORT);
+    $logger  = new Laminas\Log\Logger();
     $logger->addWriter($graylog);
     Zend\Log\Logger::registerErrorHandler($logger);
     Zend\Log\Logger::registerExceptionHandler($logger);

@@ -13,8 +13,13 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class Solr
 {
-    public const DEFAULT_FIELD = 'tm_X3b_en_aggregated_field';
-    public static $FACETS      = ['index_id', 'ss_type'];
+    public const  DEFAULT_FIELD = 'tm_X3b_en_aggregated_field';
+    public static $FACETS       = ['index_id', 'ss_type', 'ss_board', 'its_year'];
+    public static $FIELDS = [
+        'id', 'site', 'index_id', 'score',
+        'ss_type', 'ss_board', 'ss_url', 'ss_title', 'ss_summary',
+        'its_year', 'ds_date', 'ds_changed'
+    ];
 
     private $client;
 
@@ -31,45 +36,56 @@ class Solr
      */
     public function __construct(array $config)
     {
-        $this->client = new Client(new Curl(),
+        $curl         = new Curl();
+        $curl->setTimeout(10);
+        $this->client = new Client($curl,
                                    new EventDispatcher(),
                                    ['endpoint'=>['solr'=>$config]]);
     }
 
     public function getClient(): Client { return $this->client; }
 
-    /**
-     * @param string $search
-     * @param int    $itemsPerPage
-     * @param int    $currentPage   Current page number starting from 1
-     * @param array  $filters
-     */
     public function query(string $search,
                              int $itemsPerPage,
-                             int $currentPage,
+                             int $currentPage, // Page number starting at 1
                           ?array $filters=null): ResultInterface
     {
-        $search = self::cleanInput($search);
-        $query  = $this->client->createSelect([
-            'query'   => $search,
-            'fields'  => 'id,site,index_id,ss_type,ss_url,ss_title,ss_summary,score',
-            'start'   => $currentPage - 1, // Solr page numbers start at 0
-            'rows'    => $itemsPerPage,
-            'querydefaultfield' => self::DEFAULT_FIELD
-        ]);
+        $query  = $this->client->createSelect();
+        $dismax = $query->getEDisMax();
+
         $query->getHighlighting();
 
+        $query->setQuery (self::cleanInput($search));
+        $query->setFields(implode(',', self::$FIELDS));
+        $query->setStart ($currentPage - 1); // Solr pagination starts at 0
+        $query->setRows  ($itemsPerPage);
+
+        $dismax->setQueryFields('ss_title^2 ss_summary^2 tm_X3b_en_aggregated_field');
+
+        // This filters out old documents from search results
+        // It declares a curve from 1 to zero where it hits zero at $M.
+        // So, documents older than $m will not show up in search results at all.
+        // $a and $b control the shape of the curve.
+        // Units are all in milliseconds
+        $numYears = 1;
+        $m = 3.16E-11 * $numYears;
+        $a = 1; $b = 1;
+        $dismax->setBoostFunctionsMult("recip(ms(NOW,ds_changed),$m,$a,$b)");
+//         $dismax->setBoostFunctionsMult("if(eq(ss_type,'news'),0.1,1) recip(ms(NOW,ds_changed),1,1000,1000)");
+
         $facets = $query->getFacetSet();
+        $facets->setMinCount(1);
         foreach (self::$FACETS as $f) {
             $facets->createFacetField($f)->setField($f);
 
             if (!empty($filters[$f])) {
                 $query->createFilterQuery($f)
-                      ->setQuery("$f: ".self::cleanInput($filters[$f]));
+                      ->setQuery(sprintf('%s:"%s"', $f, self::cleanInput($filters[$f])));
             }
         }
 
-
+        $req = $this->client->createRequest($query);
+        error_log($req->getUri());
         return $this->client->execute($query);
     }
 
