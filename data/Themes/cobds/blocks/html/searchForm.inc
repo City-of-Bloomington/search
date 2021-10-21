@@ -5,7 +5,9 @@
  * @param ResponseInterface $this->results
  */
 declare (strict_types=1);
-use Web\Url; use Web\Search\Solr; ?>
+use Web\Url;
+use Web\Search\Solr;
+?>
 
 <section class="results-wrapper">
   <form method="get" autocomplete="off">
