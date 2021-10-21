@@ -124,7 +124,7 @@ msgid "vendor_prepared_food"
 msgstr "Food Vendor"
 
 msgid "onboard"
-msgstr "OnBoard"
+msgstr "Boards & Commissions"
 
 msgid "agenda"
 msgstr "Agenda"
