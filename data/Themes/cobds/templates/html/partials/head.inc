@@ -4,9 +4,9 @@
   <link rel="manifest" href="<?= THEME; ?>/manifest.json" />
   <link rel="shortcut icon" href="<?= THEME; ?>/images/favicon/favicon.ico" />
   <?php
-    $this->include('partials/stylesheets.inc');
+    $this->_include('partials/stylesheets.inc');
     $this->addToAsset('scripts', BASE_URI.'/js/search-'.VERSION.'.js'); ?>
-
+  
   <title>
     <?= isset($this->title) ? self::escape($this->title) : APPLICATION_NAME; ?>
     | City of Bloomington, Indiana
