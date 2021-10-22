@@ -285,21 +285,26 @@ main {
           margin: 0 0 $size-m/2 0;
         }
 
-        span {
+        .meta {
+          margin: 0 0 $size-m/2 0;
+
+          span {
+            font-size: $size-s;
+            margin: 0 $size-m/2 0 0;
+          }
+        }
+
+        a {
           font-size: $size-s;
           display: block;
           margin: 0 0 $size-m/2 0;
+          color: $color-blue;
+          text-decoration: none;
 
-          a {
-            // color: $text-color;
-            color: $color-blue;
-            text-decoration: none;
-
-            &:hover,
-            &:focus {
-              text-decoration: underline;
-              color: $text-color;
-            }
+          &:hover,
+          &:focus {
+            text-decoration: underline;
+            color: $text-color;
           }
         }
 

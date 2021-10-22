@@ -46,19 +46,17 @@ if (isset($this->total)) {
                 <header>
                     <h1>$d[ss_title]</h1>
 
-                    <span>
-                        <strong>Last Change:</strong>&nbsp;" . date_format (new DateTime($d['ds_changed']), 'm-d-Y') . "
-                    </span>
+                    <div class=\"meta\">
+                        <span>
+                            <strong>Origin Date:</strong>&nbsp;" . date_format (new DateTime($d['ds_date']), 'm-d-Y') . " 
+                        </span>
+                        
+                        <span>
+                            <strong>Last Change:</strong>&nbsp;" . date_format (new DateTime($d['ds_changed']), 'm-d-Y') . "
+                        </span>
+                    </div>
 
-                    <span>
-                        <strong>Created Date:</strong>&nbsp;" . date_format (new DateTime($d['ds_date']), 'm-d-Y') . " 
-                    </span>
-
-                    <span>
-                        <a
-                            href=\"$d[ss_url]\"
-                            title=\"$d[ss_title]\">$d[ss_url]</a>
-                    </span>              
+                    <a href=\"$d[ss_url]\" title=\"$d[ss_title]\">$d[ss_url]</a>             
                 </header>
                 <p>$summary</p>";
                 
