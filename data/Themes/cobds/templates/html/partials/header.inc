@@ -23,5 +23,18 @@
     <a href="<?= BASE_URI; ?>" title="City of Bloomington, Indiana" class="name"
       >Mayor John Hamilton</a
     >
+
+    <nav id="navigation" role="navigation" aria-labelledby="navigation">
+      <ul>
+        <li>
+          <a
+            href="https://bloomington.in.gov/ureport/miscellaneous/53"
+            title="Feedback"
+            target="_blank"
+            >Feedback</a
+          >
+        </li>
+      </ul>
+    </nav>
   </div>
 </header>
