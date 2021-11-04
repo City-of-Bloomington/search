@@ -60,8 +60,9 @@ class Solr
         $query->setStart ($currentPage - 1); // Solr pagination starts at 0
         $query->setRows  ($itemsPerPage);
 
-        $dismax->setQueryFields('ss_title^2 ss_summary^2 tm_X3b_en_aggregated_field');
-
+        $dismax->setQueryFields ('ss_title^2 ss_summary^2 tm_X3b_en_aggregated_field');
+        $dismax->setPhraseFields('ss_title^4 ss_summary^3 tm_X3b_en_aggregated_field^2');
+        $dismax->setPhraseSlop(3);
         // This filters out old documents from search results
         // It declares a curve from 1 to zero where it hits zero at $M.
         // So, documents older than $m will not show up in search results at all.
