@@ -8,32 +8,41 @@ declare (strict_types=1);
 use Web\Url;
 
 if ($this->facets) {
-    $current_url = new Url(Url::current_url(BASE_HOST));
-    $i = 0;
-
+    $current_url   = new Url(Url::current_url(BASE_HOST));
+    
     foreach ($this->facets as $k=>$facet) {
-        $url = clone($current_url);
+        $open  = '';
+        $label = _($k);
+        $url   = clone($current_url);
         if ($url->$k) { unset($url->$k); }
 
-        $openAttribute = ($i == 0) ? 'open' : '';
-        $label = _($k);
-
-        echo "<details $openAttribute>
-                <summary>$label</summary>
-                <ul>";
-
+        switch ($k) {
+            case 'index_id':  ksort($facet); $open='open'; break;
+            case 'its_year': krsort($facet);               break;
+            default:
+        }
+        
+        echo "
+        <details $open>
+            <summary>$label</summary>
+            <ul>
+        ";
+                
         foreach ($facet as $value => $count) {
             $url->$k = $value;
-            $facetCountFormat = number_format($count, 0, '.', ',');
+            $format  = number_format($count, 0, '.', ',');
 
-            echo "<li>
-                    <a href=\"$url\">{$this->_($value)}
-                        <span class='badge grey'>$facetCountFormat</span>
+            echo "
+                <li><a href=\"$url\">{$this->_($value)}
+                        <span class='badge grey'>$format</span>
                     </a>
-                  </li>";
+                </li>
+            ";
         }
 
-        echo "</ul></details>";
-        ++$i;
+        echo "
+            </ul>
+        </details>
+        ";
     }
 }
