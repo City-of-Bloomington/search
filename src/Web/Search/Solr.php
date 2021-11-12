@@ -71,7 +71,7 @@ class Solr
         $numYears = 1;
         $m = 3.16E-11 * $numYears;
         $a = 1; $b = 1;
-        $dismax->setBoostFunctionsMult("recip(ms(NOW,ds_changed),$m,$a,$b)");
+        $dismax->setBoostFunctionsMult("recip(ms(NOW,ds_date),$m,$a,$b)");
 //         $dismax->setBoostFunctionsMult("if(eq(ss_type,'news'),0.1,1) recip(ms(NOW,ds_changed),1,1000,1000)");
 
         $facets = $query->getFacetSet();
