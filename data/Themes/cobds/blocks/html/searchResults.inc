@@ -36,7 +36,7 @@ if (isset($this->total)) {
 
         echo "</span></div>";
 
-       
+
 
         $current_url = new Url(Url::current_url(BASE_HOST));
         foreach ($this->results as $d) {
@@ -48,30 +48,19 @@ if (isset($this->total)) {
 
                     <div class=\"meta\">
                         <span>
-                            <strong>Origin Date:</strong>&nbsp;" . date_format (new DateTime($d['ds_date']), 'm-d-Y') . " 
+                            <strong>Origin Date:</strong>&nbsp;" . date_format (new DateTime($d['ds_date']), 'm-d-Y') . "
                         </span>
-                        
+
                         <span>
                             <strong>Last Change:</strong>&nbsp;" . date_format (new DateTime($d['ds_changed']), 'm-d-Y') . "
                         </span>
                     </div>
 
-                    <a href=\"$d[ss_url]\" title=\"$d[ss_title]\">$d[ss_url]</a>             
+                    <a href=\"$d[ss_url]\" title=\"$d[ss_title]\">$d[ss_url]</a>
                 </header>
-                <p>$summary</p>";
-                
-            
-
-             foreach (Solr::$FACETS as $field) {
-                $url = clone($current_url);
-                if (!empty($d[$field])) {
-                    $url->$field = $d[$field];
-                    echo "<a href=\"$url\" class=\"badge primary outline\">{$this->_($d[$field])}</a>";
-                }
-            }
-
-            echo "</article>";
-            // echo '<pre>'; print_r($d); echo '</pre>';
+                <p>$summary</p>
+            </article>
+            ";
         }
         echo "
         </div>
