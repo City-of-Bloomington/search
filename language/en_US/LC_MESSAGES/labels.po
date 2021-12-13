@@ -43,13 +43,13 @@ msgid "site"
 msgstr "Site"
 
 msgid "index_id"
-msgstr "Index"
+msgstr "Filter by"
 
 msgid "ss_type"
-msgstr "Type"
+msgstr "Filter by Type"
 
 msgid "ss_board"
-msgstr "Board"
+msgstr "Filter by Board"
 
 msgid "ss_url"
 msgstr "URL"
@@ -61,7 +61,7 @@ msgid "ss_summary"
 msgstr "Summary"
 
 msgid "its_year"
-msgstr "Year"
+msgstr "Filter by Year"
 
 msgid "ds_date"
 msgstr "Date"
@@ -70,7 +70,7 @@ msgid "ds_changed"
 msgstr "Changed"
 
 msgid "drupal"
-msgstr "Website"
+msgstr "Website Content"
 
 msgid "basic_page"
 msgstr "Webpage"
@@ -124,7 +124,7 @@ msgid "vendor_prepared_food"
 msgstr "Food Vendor"
 
 msgid "onboard"
-msgstr "Boards & Commissions"
+msgstr "Board Agendas, Minutes, & Packets"
 
 msgid "agenda"
 msgstr "Agenda"
