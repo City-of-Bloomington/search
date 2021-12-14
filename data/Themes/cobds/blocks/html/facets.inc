@@ -33,7 +33,9 @@ if ($this->facets) {
             $format  = number_format($count, 0, '.', ',');
 
             echo "
-                <li><a href=\"$url\">{$this->_($value)}
+                <li>
+                    <a href=\"$url\" title=\"{$this->_($value)}\">
+                        <span>{$this->_($value)}</span>
                         <span class='badge grey'>$format</span>
                     </a>
                 </li>

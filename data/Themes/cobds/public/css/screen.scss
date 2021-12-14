@@ -193,6 +193,10 @@ main {
               }
             }
 
+            span:not(.badge) {
+              margin: 0 20px 0 0;
+            }
+
             // &:last-child {
             //   border-bottom: none;
             //   padding: 5px 0 0 0;
