@@ -21,7 +21,7 @@ class SearchController extends Controller
             if (!empty($_GET[$f])) { $filters[$f] = $_GET[$f]; }
         }
 
-        $query = empty($_GET['query']) ? '*' : $_GET['query'];
+        $query = empty($_GET['query']) ? '*' : preg_replace('/[^a-zA-Z]/', ' ', $_GET['query']);
         $rows  = ($filters || !empty($_GET['query'])) ? self::ITEMS_PER_PAGE : 0;
 
         $solr  = $this->di->get('Web\Search\Solr');
