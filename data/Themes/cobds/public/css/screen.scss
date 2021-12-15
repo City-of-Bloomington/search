@@ -193,6 +193,10 @@ main {
               }
             }
 
+            span:not(.badge) {
+              margin: 0 20px 0 0;
+            }
+
             // &:last-child {
             //   border-bottom: none;
             //   padding: 5px 0 0 0;
@@ -271,6 +275,14 @@ main {
           h1 {
             color: $color-blue;
           }
+
+          .meta {
+            span {
+              &:first-child {
+                color: $color-blue;
+              }
+            }
+          }
         }
       }
 
@@ -284,13 +296,19 @@ main {
           line-height: $size-m + 6;
           margin: 0 0 $size-m/2 0;
         }
-
         .meta {
           margin: 0 0 $size-m/2 0;
 
           span {
             font-size: $size-s;
             margin: 0 $size-m/2 0 0;
+            font-style: normal;
+
+            &:first-child {
+              width: 100%;
+              display: block;
+              margin: 0 0 8px 0;
+            }
           }
         }
 

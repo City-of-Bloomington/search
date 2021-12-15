@@ -42,24 +42,27 @@ if (isset($this->total)) {
         foreach ($this->results as $d) {
             $summary = $d['highlighting'] ?? $d['ss_summary'] ?? '';
             echo "
-            <article class=\"result\">
-                <header>
-                    <h1>$d[ss_title]</h1>
+            <a href=\"$d[ss_url]\" title=\"$d[ss_title]\" class=\"result\">
+                <article>
+                    <header>
+                        <h1>$d[ss_title]</h1>
+                    
+                        <div class=\"meta\">
+                            <span>$d[ss_url]</span>
 
-                    <div class=\"meta\">
-                        <span>
-                            <strong>Origin Date:</strong>&nbsp;" . date_format (new DateTime($d['ds_date']), 'm-d-Y') . "
-                        </span>
+                            <span>
+                                <strong>Origin Date:</strong>&nbsp;" . date_format (new DateTime($d['ds_date']), 'm-d-Y') . "
+                            </span>
 
-                        <span>
-                            <strong>Last Change:</strong>&nbsp;" . date_format (new DateTime($d['ds_changed']), 'm-d-Y') . "
-                        </span>
-                    </div>
+                            <span>
+                                <strong>Last Change:</strong>&nbsp;" . date_format (new DateTime($d['ds_changed']), 'm-d-Y') . "
+                            </span>
+                        </div>
+                    </header>
 
-                    <a href=\"$d[ss_url]\" title=\"$d[ss_title]\">$d[ss_url]</a>
-                </header>
-                <p>$summary</p>
-            </article>
+                    <p>$summary</p>
+                </article>
+            </a>
             ";
         }
         echo "
