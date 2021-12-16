@@ -30,7 +30,7 @@ define('BASE_URL' , "$_SERVER[REQUEST_SCHEME]://".BASE_HOST.BASE_URI);
  * A theme can consist of templates, blocks which will override core.
  * The current theme's screen.css will be included in the HTML head.
  */
-define('THEME', 'COB');
+define('THEME', '{{ search_theme }}');
 
 
 $SOLR = [
