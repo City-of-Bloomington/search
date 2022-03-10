@@ -63,7 +63,8 @@ class Solr
         $dismax->setQueryFields ('ss_title^2 ss_summary^2 tm_X3b_en_aggregated_field');
         $dismax->setPhraseFields('ss_title^4 ss_summary^3 tm_X3b_en_aggregated_field^2');
         $dismax->setPhraseSlop(3);
-        $dismax->addBoostQuery(['key'=>0, 'query'=>'ss_type:guide_page^2']);
+        //$dismax->addBoostQuery(['key'=>0, 'query'=>'ss_type:guide_page^2']);
+
         // This filters out old documents from search results
         // It declares a curve from 1 to zero where it hits zero at $M.
         // So, documents older than $m will not show up in search results at all.
