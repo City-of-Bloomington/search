@@ -7,7 +7,7 @@
       />
     </a>
     <a href="<?= MAIN_WEBSITE; ?>" title="City of Bloomington, Indiana" class="name"
-      >Mayor John Hamilton</a
+      >Mayor Kerry Thomson</a
     >
 
     <nav id="navigation" role="navigation" aria-labelledby="navigation">
