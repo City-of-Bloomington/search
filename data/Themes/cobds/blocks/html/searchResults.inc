@@ -73,7 +73,7 @@ if (isset($this->total)) {
             $this->paginator = new Paginator(
                 $this->total,
                 $this->itemsPerPage,
-                $this->currentPage,
+                $this->currentPage + 1,
                 5
             );
             $this->_include('pageNavigation.inc');
