@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2021 City of Bloomington, Indiana
+ * @copyright 2021-2024 City of Bloomington, Indiana
  * @license https://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 declare (strict_types=1);
@@ -47,7 +47,7 @@ class Solr
 
     public function query(string $search,
                              int $itemsPerPage,
-                             int $currentPage, // Page number starting at 1
+                             int $currentPage, // Page number starting at 0
                           ?array $filters=null): ResultInterface
     {
         $query  = $this->client->createSelect();
@@ -57,7 +57,7 @@ class Solr
 
         $query->setQuery (self::cleanInput($search));
         $query->setFields(implode(',', self::$FIELDS));
-        $query->setStart ($currentPage - 1); // Solr pagination starts at 0
+        $query->setStart ($currentPage * $itemsPerPage); // Solr pagination starts at 0
         $query->setRows  ($itemsPerPage);
 
         $dismax->setQueryFields ('ss_title^2 ss_summary^2 tm_X3b_en_aggregated_field');
@@ -87,7 +87,6 @@ class Solr
         }
 
         $req = $this->client->createRequest($query);
-        error_log($req->getUri());
         return $this->client->execute($query);
     }
 

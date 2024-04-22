@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2021 City of Bloomington, Indiana
+ * @copyright 2021-2024 City of Bloomington, Indiana
  * @license https://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 declare (strict_types=1);
@@ -14,7 +14,8 @@ class SearchController extends Controller
 
     public function __invoke()
     {
-		$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
+        // Solr pages start at 0
+		$page = !empty($_GET['page']) ? (int)$_GET['page'] - 1 : 0;
 
         $filters = [];
         foreach (Solr::$FACETS as $f) {
