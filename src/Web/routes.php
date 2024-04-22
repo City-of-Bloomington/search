@@ -1,10 +1,10 @@
 <?php
 /**
- * @copyright 2021 City of Bloomington, Indiana
+ * @copyright 2024 City of Bloomington, Indiana
  * @license https://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 declare (strict_types=1);
+$ROUTES = new Aura\Router\RouterContainer(BASE_URI);
+$map    = $ROUTES->getMap();
 
-$rf = new \Aura\Router\RouterFactory(BASE_URI);
-$ROUTES = $rf->newInstance();
-$ROUTES->add('home.index', '/')->setValues(['controller' => 'Web\Search\SearchController']);
+$map->get('home.index', '/', Web\Search\SearchController::class);

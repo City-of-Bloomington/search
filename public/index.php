@@ -1,12 +1,14 @@
 <?php
 /**
- * @copyright 2021 City of Bloomington, Indiana
+ * @copyright 2021-2024 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 /**
  * Grab a timestamp for calculating process time
  */
 declare (strict_types=1);
+
+use GuzzleHttp\Psr7\ServerRequest;
 use Web\Authentication\Auth;
 use Web\Views\NotFoundView;
 
@@ -14,13 +16,17 @@ $startTime = microtime(true);
 
 include '../src/Web/bootstrap.php';
 
-$p     = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$route = $ROUTES->match($p, $_SERVER);
+$matcher = $ROUTES->getMatcher();
+$route   = $matcher->match(GuzzleHttp\Psr7\ServerRequest::fromGlobals());
+
 if ($route) {
-    if (isset($route->params['controller'])) {
-        $class = $route->params['controller'];
-        $c     = new $class($DI); // $DI - Dependency Inject set up in bootstrap
-        $view  = is_callable($c) ? $c($route->params) : new NotFoundView();
+    $controller = $route->handler;
+    $c = new $controller($DI);
+    if (is_callable($c)) {
+        $view = $c($route->attributes);
+    }
+    else {
+        $view = new \Web\Views\NotFoundView();
     }
 }
 else {

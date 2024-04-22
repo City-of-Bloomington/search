@@ -17,7 +17,7 @@ class SearchView extends Template
     /**
      * @param int $currentPage   Current page number starting from 1
      */
-    public function __construct(?ResultInterface $res=null,
+    public function __construct(ResultInterface $res,
                                 int              $itemsPerPage,
                                 int              $currentPage)
     {
