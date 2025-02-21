@@ -22,18 +22,11 @@
         - "{{ search_site_home    }}"
 
     - name: "Extract release"
-      unarchive:
-        src: "{{ search_archive_path }}"
-        dest: "/usr/local/src"
-      register: "release"
-
-    - name: "Install release"
-      command: "rsync -rl /usr/local/src/search/ {{ search_install_path }}/"
-      when: "release.changed"
-
-    - name: "Update site_home"
-      command: "rsync -rl /usr/local/src/search/data/ {{ search_site_home }}/"
-      when: "release.changed"
+      ansible.builtin.unarchive:
+        src:  "{{ search_archive_path }}"
+        dest: "{{ search_install_path | dirname }}"
+        owner: 'www-data'
+        group: 'staff'
 
     - name: "Update site_config"
       template:
