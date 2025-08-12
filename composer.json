@@ -5,17 +5,11 @@
         "aura/router":              "@stable",
         "graylog2/gelf-php":        "^1",
         "guzzlehttp/guzzle":        "@stable",
-        "laminas/laminas-log":      "@stable",
         "solarium/solarium":        "@stable",
         "symfony/event-dispatcher": "@stable"
     },
-    "require-dev": {
-        "phpunit/phpunit": "@stable"
-    },
     "autoload": {
         "psr-4": {
-            "Domain\\": "src/Domain",
-            "Test\\":   "src/Test",
             "Web\\":    "src/Web"
         }
     }
