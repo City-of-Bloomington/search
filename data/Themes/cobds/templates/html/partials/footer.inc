@@ -45,10 +45,17 @@
         </div>
     </div>
 </footer>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y173H2HJJ4"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-Y173H2HJJ4');
-</script>
+<?php
+    if (defined('GOOGLE_ANALYTICS')) {
+        $key = GOOGLE_ANALYTICS;
+        echo "
+        <script async src=\"https://www.googletagmanager.com/gtag/js?id=$key\"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', '$key');
+        </script>
+        ";
+    }
+?>

@@ -25,6 +25,8 @@ define('BASE_URL' ,    "$_SERVER[REQUEST_SCHEME]://".BASE_HOST.BASE_URI);
 // website.  This sets the URL of the main website to link to
 define('MAIN_WEBSITE', "$_SERVER[REQUEST_SCHEME]://".BASE_HOST);
 
+define('GOOGLE_ANALYTICS', '');
+
 /**
  * Specify the theme directory
  *
