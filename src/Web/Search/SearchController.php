@@ -20,12 +20,16 @@ class SearchController extends Controller
         if ($page > self::MAX_PAGE) { $page = 0; }
 
         $filters = self::filters($_GET);
+        $query   = empty($_GET['query']) ? '*' : preg_replace('/[^\w\x20]/', ' ', $_GET['query']);
+        $rows    = ($filters || !empty($_GET['query'])) ? self::ITEMS_PER_PAGE : 0;
+        $solr    = $this->di->get('Web\Search\Solr');
 
-        $query = empty($_GET['query']) ? '*' : preg_replace('/[^\w\x20]/', ' ', $_GET['query']);
-        $rows  = ($filters || !empty($_GET['query'])) ? self::ITEMS_PER_PAGE : 0;
-
-        $solr  = $this->di->get('Web\Search\Solr');
-        $res   = $solr->query($query, $rows, $page, $filters);
+        try { $res = $solr->query($query, $rows, $page, $filters); }
+        catch (\Exception $e) {
+            $log = get_exception_handler();
+            if (is_callable($log)) { $log($e); }
+            return new \Web\Views\BadRequestView();
+        }
 
         return new SearchView($res, self::ITEMS_PER_PAGE, $page);
     }
