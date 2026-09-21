@@ -6,11 +6,12 @@
 declare (strict_types=1);
 namespace Web\Views;
 
-use Web\View;
+use Web\Block;
+use Web\Template;
 
-class BadRequestView extends View
+class BadRequestView extends Template
 {
-    public function __construct()
+    public function __construct(?array $vars=null)
     {
         header('HTTP/1.1 400 Bad Request', true, 400);
         parent::__construct('default', 'html', $vars);

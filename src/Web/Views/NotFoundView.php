@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2016-2019 City of Bloomington, Indiana
+ * @copyright 2016-2026 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 namespace Web\Views;
@@ -10,7 +10,7 @@ use Web\Template;
 
 class NotFoundView extends Template
 {
-    public function __construct(array $vars=null)
+    public function __construct(?array $vars=null)
     {
         header('HTTP/1.1 404 Not Found', true, 404);
 

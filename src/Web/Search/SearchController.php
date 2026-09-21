@@ -2,11 +2,12 @@
 /**
  * @copyright 2021-2026 City of Bloomington, Indiana
  * @license https://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
- * @var $SOLR array
+ * @var array $SOLR
  */
 declare (strict_types=1);
 namespace Web\Search;
 
+use Solarium\QueryType\Select\Result\Result;
 use Web\Controller;
 
 class SearchController extends Controller
@@ -27,7 +28,10 @@ class SearchController extends Controller
         $query   = empty($_GET['query']) ? '*' : preg_replace('/[^\w\x20]/', ' ', $_GET['query']);
         $rows    = ($filters || !empty($_GET['query'])) ? self::ITEMS_PER_PAGE : 0;
 
-        try { $res = $solr->query($query, $rows, $page, $filters); }
+        try {
+            $res = $solr->query($query, $rows, $page, $filters);
+            assert($res instanceof Result);
+        }
         catch (\Exception $e) {
             $log = get_exception_handler();
             if (is_callable($log)) { $log($e); }

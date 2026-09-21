@@ -7,7 +7,7 @@
  * $url->somevar = $somevar;
  * echo $url->getURL();
  *
- * @copyright 2006-2017 City of Bloomington, Indiana.
+ * @copyright 2006-2026 City of Bloomington, Indiana.
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 namespace Web;
@@ -33,7 +33,7 @@ class Url
 	 * @param  array  $curl_options Additional options to set for the curl request
 	 * @return string
 	 */
-	public static function get($url, array $curl_options=null): string
+	public static function get(string $url, ?array $curl_options=null): string
 	{
 		$request = curl_init($url);
 		if ($curl_options) {
@@ -58,14 +58,14 @@ class Url
 	 * @param  string $hostname Optional hostname to use
 	 * @return string
 	 */
-	public static function current_url($hostname=null): string
+	public static function current_url(?string $hostname=null): string
 	{
         if (!$hostname) { $hostname = $_SERVER['SERVER_NAME']; }
 
         return "$_SERVER[REQUEST_SCHEME]://$hostname$_SERVER[REQUEST_URI]";
 	}
 
-	public function __construct($url)
+	public function __construct(string $url)
 	{
 		$script = urldecode($url);
 
@@ -99,9 +99,8 @@ class Url
 
 	/**
 	 * Returns the full, properly formatted and escaped URL
-	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return $this->getUrl();
 	}
 
@@ -140,9 +139,8 @@ class Url
 
 	/**
 	 * Returns just the protocol (http://, https://) portion
-	 * @return string
 	 */
-	public function getScheme() {
+	public function getScheme(): string {
 		if (!$this->scheme) {
 			$this->scheme = 'http';
 		}
@@ -153,10 +151,10 @@ class Url
 	 * Sets the protocol for the URL (http, https)
 	 * @param string $protocol
 	 */
-	public function setScheme($string)
+	public function setScheme(string $protocol)
 	{
-		$string = preg_replace('|://|', '', $string);
-		$this->scheme = $string;
+		$protocol = preg_replace('|://|', '', $protocol);
+		$this->scheme = $protocol;
 	}
 
 	/**
@@ -177,39 +175,25 @@ class Url
 		return array_filter($input);
 	}
 
-	/**
-	 * @param string $key
-	 * @return string
-	 */
-	public function __get($key)
+	public function __get(string $key): ?string
 	{
-		if (isset($this->parameters[$key])) {
+		if (isset( $this->parameters[$key] )) {
 			return $this->parameters[$key];
 		}
+		return null;
 	}
 
-	/**
-	 * @param string $key
-	 * @param string $value
-	 */
-	public function __set($key,$value)
+	public function __set(string $key, $value)
 	{
 		$this->parameters[$key] = $value;
 	}
 
-	/**
-	 * @param string $key
-	 * @return boolean
-	 */
-	public function __isset($key)
+	public function __isset(string $key): bool
 	{
 		return isset($this->parameters[$key]);
 	}
 
-	/**
-	 * @param string $key
-	 */
-	public function __unset($key)
+	public function __unset(string $key)
 	{
 		unset($this->parameters[$key]);
 	}

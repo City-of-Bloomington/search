@@ -1,12 +1,12 @@
 <?php
 /**
- * @copyright 2021 City of Bloomington, Indiana
+ * @copyright 2026 City of Bloomington, Indiana
  * @license https://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 declare (strict_types=1);
 namespace Web\Search;
 
-use Solarium\Core\Query\Result\ResultInterface;
+use Solarium\QueryType\Select\Result\Result;
 use Solarium\Component\Result\Highlighting\Highlighting;
 
 use Web\Block;
@@ -17,9 +17,9 @@ class SearchView extends Template
     /**
      * @param int $currentPage   Current page number starting from 1
      */
-    public function __construct(ResultInterface $res,
-                                int              $itemsPerPage,
-                                int              $currentPage)
+    public function __construct(Result $res,
+                                int    $itemsPerPage,
+                                int    $currentPage)
     {
         $format = !empty($_REQUEST['format']) ? $_REQUEST['format'] : 'html';
         parent::__construct('default', $format);
@@ -27,29 +27,26 @@ class SearchView extends Template
         $results = [];
         $facets  = [];
 
-        if ($res) {
-            // Add highlighting information to the search results
-            foreach ($res as $r) {
-                $fields                 = $r->getFields();
-                $fields['highlighting'] = self::getHighlighting($res->getHighlighting(), $r->id);
-                $results[]              = $fields;
-            }
-
-            // Filter out facets we do not want to display
-            foreach ($res->getFacetSet() as $f => $facet) {
-                foreach ($facet as $value => $count) {
-                    // Only display if we have results for this value
-                    if ((int)$count) { $facets[$f][$value] = $count; }
-                }
-            }
-            $vars = [
-                'itemsPerPage' => $itemsPerPage,
-                'currentPage'  => $currentPage,
-                'total'        => $res->getNumFound(),
-                'results'      => $results
-            ];
+        // Add highlighting information to the search results
+        foreach ($res as $r) {
+            $fields                 = $r->getFields();
+            $fields['highlighting'] = self::getHighlighting($res->getHighlighting(), $r->id);
+            $results[]              = $fields;
         }
-        else { $vars = null; }
+
+        // Filter out facets we do not want to display
+        foreach ($res->getFacetSet() as $f => $facet) {
+            foreach ($facet as $value => $count) {
+                // Only display if we have results for this value
+                if ((int)$count) { $facets[$f][$value] = $count; }
+            }
+        }
+        $vars = [
+            'itemsPerPage' => $itemsPerPage,
+            'currentPage'  => $currentPage,
+            'total'        => $res->getNumFound(),
+            'results'      => $results
+        ];
 
         if ($format == 'json') {
             $this->blocks = [ new Block('searchResults.inc', ['result' => $res]) ];

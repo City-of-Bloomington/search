@@ -4,7 +4,7 @@
  *
  * The template collects all the blocks from the controller
  *
- * @copyright 2006-2020 City of Bloomington, Indiana
+ * @copyright 2006-2026 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 namespace Web;
@@ -19,12 +19,7 @@ class Template extends View
 	private $assets  = [];
 	private $helpers = [];
 
-	/**
-	 * @param string $filename
-	 * @param string $outputFormat
-	 * @param array $vars
-	 */
-	public function __construct($filename='default',$outputFormat='html',array $vars=null)
+	public function __construct(string $filename='default', string $outputFormat='html', ?array $vars=null)
 	{
 		parent::__construct($vars);
 
@@ -43,10 +38,7 @@ class Template extends View
 		}
 	}
 
-	/**
-	 * @param string $filename
-	 */
-	public function setFilename($filename)
+	public function setFilename(string $filename)
 	{
 		if ($this->theme
                && is_file($this->theme."/templates/{$this->outputFormat}/$filename.inc")) {
@@ -62,10 +54,7 @@ class Template extends View
 		$this->filename = $filename;
 	}
 
-	/**
-	 * @param string $format
-	 */
-	public function setOutputFormat($format)
+	public function setOutputFormat(string $format)
 	{
 		$format = preg_replace('/[^a-zA-Z]/','',$format);
 
@@ -123,10 +112,11 @@ class Template extends View
 	 * $this->blocks['panel-one'][] = "left sidebar block two";
 	 * $this->blocks['panel-two'][] = "right sidebar block one";
 	 *
-	 * @param string $panel
+	 * @param  string $target   Name of panel to render blocks into
 	 * @return string
 	 */
-	private function includeBlocks($target=null): string
+	// @phpstan-ignore method.unused
+	private function includeBlocks(?string $target=null): string
 	{
 		ob_start();
 		if ($target) {

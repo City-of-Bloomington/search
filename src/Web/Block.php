@@ -9,7 +9,7 @@
  * APPLICATION_HOME/blocks/xml/...
  * APPLICATION_HOME/blocks/json/..
  *
- * @copyright 2006-2018 City of Bloomington, Indiana
+ * @copyright 2006-2026 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 namespace Web;
@@ -23,12 +23,9 @@ class Block extends View
 	 * Establishes the block script to use for rendering
 	 *
 	 * Blocks are files contained in the base path of:
-	 * APPLICATION_HOME/blocks/$outpuform
-	 *
-	 * @param string $file
-	 * @param array $vars An associative array of variables to set
+	 * APPLICATION_HOME/blocks/$outputFormat
 	 */
-	public function __construct($file, array $vars=null)
+	public function __construct(string $file, ?array $vars=null)
 	{
 		parent::__construct($vars);
 
@@ -39,7 +36,7 @@ class Block extends View
 	 * @param string $file Path to file from /blocks directory
 	 * @return bool
 	 */
-	public function exists($file)
+	public function exists(string $file): bool
 	{
         return (($this->theme && is_file(   "{$this->theme}/blocks/$file"))
                 ||              (is_file(APPLICATION_HOME."/blocks/$file")));
@@ -51,11 +48,8 @@ class Block extends View
 	 * We allow for passing the Template that this block is being rendered in.
 	 * This allows the blocks to update information in the template on the fly.
 	 * This is most commonly used in adding script urls to the Template
-	 *
-	 * @param string $outputFormat
-	 * @return string
 	 */
-	public function render($outputFormat='html', Template $template=null)
+	public function render(string $outputFormat='html', ?Template $template=null): string
 	{
 		$block = "/blocks/$outputFormat/{$this->file}";
 		$this->template = $template;
@@ -76,10 +70,7 @@ class Block extends View
 		return ob_get_clean();
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getFile()
+	public function getFile(): string
 	{
 		return $this->file;
 	}
@@ -90,10 +81,8 @@ class Block extends View
 	 * Supports THEME overriding.
 	 * Specify a relative path starting from /blocks/
 	 * $file paths should not start with a slash.
-	 *
-	 * @param string $file
 	 */
-	public function _include($file)
+	public function _include(string $file)
 	{
         $format = $this->template->outputFormat;
 
