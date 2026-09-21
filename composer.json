@@ -1,7 +1,6 @@
 {
     "require": {
         "php": ">=8",
-        "aura/di":     "~3",
         "aura/router":              "@stable",
         "graylog2/gelf-php":        "^1",
         "guzzlehttp/guzzle":        "@stable",

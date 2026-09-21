@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2021-2024 City of Bloomington, Indiana
+ * @copyright 2021-2026 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE
  */
 declare (strict_types=1);
@@ -28,7 +28,6 @@ include SITE_HOME.'/site_config.php';
 $loader = require APPLICATION_HOME.'/vendor/autoload.php';
 $loader->addPsr4('Site\\', SITE_HOME.'/src');
 
-include APPLICATION_HOME.'/src/Web/container.php';
 include APPLICATION_HOME.'/src/Web/routes.php';
 
 /**

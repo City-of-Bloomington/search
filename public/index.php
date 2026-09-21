@@ -21,7 +21,7 @@ $route   = $matcher->match(GuzzleHttp\Psr7\ServerRequest::fromGlobals());
 
 if ($route) {
     $controller = $route->handler;
-    $c = new $controller($DI);
+    $c = new $controller();
     if (is_callable($c)) {
         $view = $c($route->attributes);
     }
