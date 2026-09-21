@@ -7,6 +7,9 @@
         "solarium/solarium":        "@stable",
         "symfony/event-dispatcher": "@stable"
     },
+    "require-dev": {
+        "phpstan/phpstan": "@stable"
+    },
     "autoload": {
         "psr-4": {
             "Web\\":    "src/Web"

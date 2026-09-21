@@ -11,7 +11,7 @@ JAVASCRIPT := $(shell find public -name '*.js' ! -name '*-*.js')
 VERSION := $(shell cat VERSION | tr -d "[:space:]")
 COMMIT := $(shell git rev-parse --short HEAD)
 
-default: clean compile package
+default: test clean compile package
 
 clean:
 	rm -Rf build/${APPNAME}*
@@ -27,6 +27,9 @@ package:
 	[[ -d build ]] || mkdir build
 	rsync -rl --exclude-from=buildignore . build/${APPNAME}
 	cd build && tar czf ${APPNAME}-${VERSION}.tar.gz ${APPNAME}
+
+test:
+	vendor/bin/phpstan analyse -l 5
 
 $(CSS): deps
 	cd $@ && sassc -t compact -m screen.scss screen-${VERSION}.css
